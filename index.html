@@ -1,3 +1,54 @@
-<body bgcolor="black">
-<img src="collage.png_stacked.png" style="width: 100%; height: auto; max-width: 100%;" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toggle Images</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            display: none;
+        }
+
+        .visible {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <button onclick="toggleImage()" id="button">Show ungrouped</button>
+    
+    <img src="collage.png_stacked.png" id="image1" class="visible" />
+    <img src="collage.png" id="image2" />
+
+    <script>
+        function toggleImage() {
+            var image1 = document.getElementById('image1');
+            var image2 = document.getElementById('image2');
+
+            var button = document.getElementById('button');
+
+            if (image1.classList.contains('visible')) {
+                image1.classList.remove('visible');
+                image2.classList.add('visible');
+                button.innerHTML = 'Show ungrouped';
+            } else {
+                image2.classList.remove('visible');
+                image1.classList.add('visible');
+                button.innerHTML = 'Show grouped';
+            }
+        }
+    </script>
+
 </body>
+</html>
