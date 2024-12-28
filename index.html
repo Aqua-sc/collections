@@ -79,7 +79,9 @@
 
         button_state.innerHTML = 'Show ' + state_names[(state + 1) % total_states];
         button_type.innerHTML = 'Show ' + div_names[(selected + 1) % total_types];
-        images[selected][state].classList.add('visible');
+        for (var i = 0; i < total_types; i++) {
+            images[i][state].classList.add('visible');
+        }
         divs[selected].classList.add('visible');
         function switchState() {
             
