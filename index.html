@@ -19,34 +19,80 @@
             display: none;
         }
 
+        .typecontainer {
+            display: none;
+        }
+
         .visible {
             display: block;
         }
     </style>
 </head>
 <body>
-
-    <button onclick="toggleImage()" id="button">Show ungrouped</button>
+    <div style="flex-direction: row;">
+        <button onclick="switchState()" id="button_state">Show horizontal</button>
+        <button onclick="switchType()" id="button_type">Show anime</button>
+    </div>
     
-    <img src="collage.png_stacked.png" id="image1" class="visible" />
-    <img src="collage.png" id="image2" />
+    <div id="funkodiv" class="typecontainer visible">
+        <img src="collage.png_stacked.png" id="funko_vertical_group" class="visible" />
+        <img src="collage.png" id="funko" />
+        <img src="collage.png_stacked_h.png" id="funko_horizontal_group" />
+    </div>
+
+    <div id="animediv" class="typecontainer">
+        <img src="anime_collage.png_stacked.png" id="anime_vertical_group" class="visible" />
+        <img src="anime_collage.png" id="anime" />
+        <img src="anime_collage.png_stacked_h.png" id="anime_horizontal_group" />
+    </div>
+    
 
     <script>
-        function toggleImage() {
-            var image1 = document.getElementById('image1');
-            var image2 = document.getElementById('image2');
+        selected = 0; // 0 = funko, 1 = anime
+        total_types = 2;
 
-            var button = document.getElementById('button');
+        state = 0; // 0 = vertical, 1 = horizontal, 2 = ungrouped
+        total_states = 3;
 
-            if (image1.classList.contains('visible')) {
-                image1.classList.remove('visible');
-                image2.classList.add('visible');
-                button.innerHTML = 'Show grouped';
-            } else {
-                image2.classList.remove('visible');
-                image1.classList.add('visible');
-                button.innerHTML = 'Show ungrouped';
+        state_names = ['vertical', 'horizontal', 'ungrouped'];
+        div_names = ['funko', 'anime'];
+
+        var funko_vertical_group = document.getElementById('funko_vertical_group');
+        var funko_horizontal_group = document.getElementById('funko_horizontal_group');
+        var funko = document.getElementById('funko');
+        funko_images = [funko_vertical_group, funko_horizontal_group, funko];
+
+        var anime_vertical_group = document.getElementById('anime_vertical_group');
+        var anime_horizontal_group = document.getElementById('anime_horizontal_group');
+        var anime = document.getElementById('anime');
+        anime_images = [anime_vertical_group, anime_horizontal_group, anime];
+
+        images = [funko_images, anime_images];
+        
+        var funkodiv = document.getElementById('funkodiv');
+        var animediv = document.getElementById('animediv');
+
+        divs = [funkodiv, animediv];
+        function switchState() {
+            var button_state = document.getElementById('button_state');
+            
+            for (var i = 0; i < total_types; i++) {
+                images[i][state].classList.remove('visible');
             }
+            state = (state + 1) % total_states;
+            for (var i = 0; i < total_types; i++) {
+                images[i][state].classList.add('visible');
+            }
+            button_state.innerHTML = 'Show ' + state_names[(state + 1) % total_states]
+        }
+
+        function switchType() {
+            var button_type = document.getElementById('button_type');
+
+            divs[selected].classList.remove('visible');
+            selected = (selected + 1) % total_types;
+            divs[selected].classList.add('visible');
+            button_type.innerHTML = 'Show ' + div_names[(selected + 1) % total_types];
         }
     </script>
 
