@@ -34,16 +34,16 @@
         <button onclick="switchType()" id="button_type">Show anime</button>
     </div>
     
-    <div id="funkodiv" class="typecontainer visible">
-        <img src="collage.png_stacked.png" id="funko_vertical_group" class="visible" />
-        <img src="collage.png" id="funko" />
-        <img src="collage.png_stacked_h.png" id="funko_horizontal_group" />
+    <div id="funkodiv" class="typecontainer">
+        <img src="collage_stacked.jpeg" id="funko_vertical_group"/>
+        <img src="collage.jpeg" id="funko" />
+        <img src="collage_stacked_h.jpeg" id="funko_horizontal_group" />
     </div>
 
     <div id="animediv" class="typecontainer">
-        <img src="anime_collage.png_stacked.png" id="anime_vertical_group" class="visible" />
-        <img src="anime_collage.png" id="anime" />
-        <img src="anime_collage.png_stacked_h.png" id="anime_horizontal_group" />
+        <img src="anime_collage_stacked.jpeg" id="anime_vertical_group"/>
+        <img src="anime_collage.jpeg" id="anime" />
+        <img src="anime_collage_stacked_h.jpeg" id="anime_horizontal_group" />
     </div>
     
 
@@ -51,10 +51,13 @@
         selected = 0; // 0 = funko, 1 = anime
         total_types = 2;
 
-        state = 0; // 0 = vertical, 1 = horizontal, 2 = ungrouped
+        state = 2; // 0 = vertical, 1 = horizontal, 2 = ungrouped
         total_states = 3;
 
-        state_names = ['vertical', 'horizontal', 'ungrouped'];
+        var button_state = document.getElementById('button_state');
+        var button_type = document.getElementById('button_type');
+
+        state_names = ['vertically grouped', 'horizontally grouped', 'ungrouped'];
         div_names = ['funko', 'anime'];
 
         var funko_vertical_group = document.getElementById('funko_vertical_group');
@@ -73,8 +76,12 @@
         var animediv = document.getElementById('animediv');
 
         divs = [funkodiv, animediv];
+
+        button_state.innerHTML = 'Show ' + state_names[(state + 1) % total_states];
+        button_type.innerHTML = 'Show ' + div_names[(selected + 1) % total_types];
+        images[selected][state].classList.add('visible');
+        divs[selected].classList.add('visible');
         function switchState() {
-            var button_state = document.getElementById('button_state');
             
             for (var i = 0; i < total_types; i++) {
                 images[i][state].classList.remove('visible');
@@ -87,7 +94,6 @@
         }
 
         function switchType() {
-            var button_type = document.getElementById('button_type');
 
             divs[selected].classList.remove('visible');
             selected = (selected + 1) % total_types;
